@@ -47,7 +47,7 @@ const AddExperience = ({ addExperience, history }) => {
                 <div class="form-group">
                     <input
                         type="text"
-                        placeholder="* Título del empleao"
+                        placeholder="* Título del empleo"
                         name="title"
                         value={title}
                         onChange={e => onChange(e)}
