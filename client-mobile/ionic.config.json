@@ -1,0 +1,7 @@
+{
+  "name": "client-mobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
