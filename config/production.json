@@ -1,6 +1,0 @@
-{
-    "mongoURI": "mongodb+srv://house117:123@socialnetwork-fm5lk.mongodb.net/test?retryWrites=true",
-    "jwtSecret": "misecreto",
-    "githubClientId": "c4346bcc5482e94935a8",
-    "githubSecret": "0704d278868fa85be5478c026b8fd672304d035f"
-}

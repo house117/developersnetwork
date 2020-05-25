@@ -8,6 +8,8 @@ const { check, validationResult } = require("express-validator/check");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 const Post = require("../../models/Posts");
+var Dropbox = require ('dropbox').Dropbox;
+var DropboxTeam = require('dropbox').DropboxTeam;
 
 //@route    GET api/profile/me
 //@desc     Obtener el perfil del usuario
@@ -48,6 +50,7 @@ router.post(
     ],
     async (req, res) => {
         const errors = validationResult(req);
+        console.log("actualizando o creando perfil???")
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
@@ -58,6 +61,7 @@ router.post(
             bio,
             status,
             githubusername,
+            dropbox,
             skills,
             youtube,
             facebook,
@@ -65,7 +69,15 @@ router.post(
             instagram,
             linkedin
         } = req.body;
-
+        if(dropbox){
+           try { // Try to get an access token
+            var dbx = new Dropbox();
+            const dbx_token = await dbx.getAccessTokenFromCode('http://localhost:3000/posts', dropbox);
+            console.log(dbx_token);
+        } catch(error) {
+            console.log(error);
+        }
+        }
         //Obtener objeto perfil
         const profileFields = {};
         profileFields.user = req.user.id;
@@ -75,6 +87,7 @@ router.post(
         if (bio) profileFields.bio = bio;
         if (status) profileFields.status = status;
         if (githubusername) profileFields.githubusername = githubusername;
+        if (dropbox) profileFields.dropbox = dropbox;
         if (skills) {
             profileFields.skills = skills
                 .split(",")
