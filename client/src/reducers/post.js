@@ -6,11 +6,13 @@ import {
     ADD_POST,
     GET_POST,
     ADD_COMMENT,
-    REMOVE_COMMENT
+    REMOVE_COMMENT,
+    GET_PUBLI
 } from "../actions/types";
 
 const initialState = {
     posts: [],
+    publi: null,
     post: null,
     loading: true,
     error: {}
@@ -24,6 +26,11 @@ export default function(state = initialState, action) {
                 ...state,
                 posts: payload,
                 loading: false
+            };
+        case GET_PUBLI:
+            return{
+                ...state,
+                publi: payload,
             };
         case GET_POST:
             return {

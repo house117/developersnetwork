@@ -9,12 +9,76 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css"
         />
+        <!--alocuche-->
+        
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <!--alocuche-->
         <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
         <title>Bienvenido a Developer's Network</title>
     </head>
+    <style>
+        table { 
+            background: #2193b0;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */          
+        padding-left:1px;
+        border-spacing: 1; 
+        border-collapse: collapse; 
+        border-radius:6px;
+        overflow:hidden;
+        max-width:1040px; 
+        width:100%;
+        margin-top: 65px;
+        margin-bottom: -65px;
+        position:relative;
+        font-family: 'Lucida Sans', 'Lucida Sans Bold', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        td,th{ 
+            padding-left:8px
+            }
+
+        thead tr        { 
+            height:60px;
+            font-size:16px;
+        }
+  
+
+    </style>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
+        <center>
+            <table id="tabla"  class="table">
+                <!--
+                <thead class="thead-dark">
+                    <th scope="col">Id</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Contenido</th>
+                    <th scope="col">Imagen</th>
+                </thead>
+                -->
+                
+            </table>
+        </center>
+        
         <div id="root"></div>
     </body>
+    <script>
+        $(document).ready(function () {
+            console.log("DOCUMENT READY!")
+                $.ajax({
+                    url: "http://46bd7cac.ngrok.io/DevelopersClientAds/AdsController?id=2",
+                    dataType: "json",
+                    success: function (result) {
+                        //$.each(result, function(index, result){
+                            var fila = /*"<tr><td>"+result.id+"</td>\*/"<tr>\
+                                <td>"+result.titulo+"</td>\
+                            <td>"+result.contenido+"</td>\
+                            <td width=\"120\" \"><img src=\""+result.imgPath+"\"  height=\"100\" width=\"100\" ></td></tr>";
+                            $("#tabla").append(fila);
+                        //});
+                    },
+                });
+        });
+    </script>
 </html>

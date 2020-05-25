@@ -8,7 +8,8 @@ import {
     ADD_POST,
     GET_POST,
     ADD_COMMENT,
-    REMOVE_COMMENT
+    REMOVE_COMMENT,
+    GET_PUBLI
 } from "./types";
 
 //Obtener posts
@@ -17,6 +18,27 @@ export const getPosts = () => async dispatch => {
         const res = await axios.get("/api/posts");
         dispatch({
             type: GET_POSTS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
+        });
+    }
+};
+
+//Obtener publicidad
+export const getPubli = () => async dispatch => {
+    try {
+        const res = await axios.get("http://46bd7cac.ngrok.io/DevelopersClientAds/AdsController?id=1");
+        console.log("HOLA!");
+        console.log(res.data.titulo);
+        dispatch({
+            type: GET_PUBLI,
             payload: res.data
         });
     } catch (err) {

@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../actions/profile";
 import queryString from 'query-string';
-let url = window.location.search;
+let url = window.location.hash;
+console.log("URL: "+url);
     let params = queryString.parse(url);
 const EditProfile = ({
     profile: { profile, loading },
@@ -34,9 +35,9 @@ const EditProfile = ({
     useEffect(() => {
         getCurrentProfile();
         console.log(profile);
+        console.log("access_token = "+params.access_token);
         if(params.access_token){
-            console.log("hay params")
-            
+            console.log("hay params");
             setFormData({
                 company: loading || !profile.company ? "" : profile.company,
                 website: loading || !profile.website ? "" : profile.website,
@@ -58,6 +59,7 @@ const EditProfile = ({
                     loading || !profile.social ? "" : profile.social.instagram
             });
         }else{
+            console.log("no hay params")
             setFormData({
                 company: loading || !profile.company ? "" : profile.company,
                 website: loading || !profile.website ? "" : profile.website,

@@ -8,7 +8,7 @@ const Landing = ({ isAuthenticated }) => {
         return <Redirect to="/dashboard" />;
     }
     return (
-        <div>
+        <div style={{marginTop : '-140px'}}>
             <section className="landing">
                 <div className="dark-overlay">
                     <div className="landing-inner">

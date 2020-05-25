@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+ 
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <title>Anuncios</title>
+</head>
+
+ 
+
+<body>
+    <div class="container">
+        <button class="btn btn-primary" id="boton">Leer XML</button>
+        <table id="tabla" class="table">
+            <thead class="thead-dark">
+                <th scope="col">Id</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Contenido</th>
+                <th scope="col">Imagen</th>
+            </thead>
+
+ 
+
+        </table>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $("#boton").click(function () {
+            $.ajax({
+                url: "http://localhost:8080/DevelopersClientAds/AdsController",
+                dataType: "json",
+                success: function (data) {
+                    $(data).find("food").each(function () {
+                        var info = "<tr><td>" + $(this).find("name").text()
+                            + "</td><td>" + $(this).find("description").text()
+                            + "</td><td>" + $(this).find("price").text()
+                            + "</td><td>" + $(this).find("calories").text() + "</td></tr>";
+
+ 
+
+                        $("#tabla").append(info);
+                    });
+                },
+                success: function (result) {
+                    $.each(result, function(index, elemento){
+                        var fila = "<tr><td>"+elemento.id+"</td>\
+                        <td>"+elemento.contenido+"</td>\
+                        <td>"+elemento.titulo+"</td>\
+                        <td><img src=\""+elemento.imgPath+"\"></td></tr>";
+                        $("#tabla").append(fila);
+                    });
+                },
+            });
+        });
+    });
+</script>
+
+ 
+
+</html>

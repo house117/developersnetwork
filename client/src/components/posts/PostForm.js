@@ -6,9 +6,10 @@ import { addPost } from "../../actions/post";
 import SunEditor, {buttonList} from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; //Import sun editor's css files!! 
 import { createProfile, getCurrentProfile } from "../../actions/profile";
-
+import axios from 'axios';
 
 var conectadoConDropbox = false;
+var res;
 const PostForm = ({ addPost, 
 profile: {profile, loading},
 createProfile,
@@ -36,13 +37,31 @@ createProfile,
     'preview', 'print', 'save', 'template']];
     //console.log(buttonList2[0][25]);
     var lolsito;
+    var publicidad = false;
    useEffect(() => {
         getCurrentProfile();
         console.log(profile);
         PostForm.lolsito = !profile ? "" : profile.dropbox;
-        if(lolsito){
+        
+        if(PostForm.lolsito){
           conectadoConDropbox = true;
+          console.log("conectado con dropbox")
+        }else{
+          console.log("no contectado con dropbox")
         }
+        /*
+        axios.get("http://46bd7cac.ngrok.io/DevelopersClientAds/AdsController?id=1").then(function (result){
+        console.log("AXIOS: ");
+        res = result.data;
+        console.log(res);
+        if(res){
+          console.log("hay publicidad:)")
+          publicidad = true;
+        }else{
+          console.log("no hay publicidad:(")
+        }
+        });
+        */
         //console.log(lolsito);
         if(lolsito){
           console.log(buttonList2[0][25]);
@@ -52,14 +71,10 @@ createProfile,
         }
         
     }, [loading, getCurrentProfile]);
-console.log("LOLSITO??: "+PostForm.lolsito);
   function handleChange(content){
     setText(content);
   }
   var respuesta;
-  async function handleImageUploadBefore(files, info){
-    console.log(files, info);
-  }
   function dataURLtoFile(dataurl, filename) {
     var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
@@ -68,6 +83,8 @@ console.log("LOLSITO??: "+PostForm.lolsito);
       }
       return new File([u8arr], filename, {type:mime});
   }
+
+  //localhost:3000
 
   async function handleImageUpload(targetImgElement, index, state, imageInfo, remainingFilesCount){
     if(imageInfo){
@@ -149,7 +166,6 @@ console.log("LOLSITO??: "+PostForm.lolsito);
       {!conectadoConDropbox ? <Link to="/edit-profile" className="btn btn-dark">
         Conectar con Dropbox
       </Link> : null}
-      
       <form
         class="form my-1"
         onSubmit={(e) => {
@@ -165,7 +181,6 @@ console.log("LOLSITO??: "+PostForm.lolsito);
         value={text}
         required
         onChange={handleChange}
-        onImageUploadBefore={handleImageUploadBefore}
         onVideoUploadBefore={handlerVideoUploadBefore}
         onImageUpload={handleImageUpload}
         onVideoUpload={handleVideoUpload}
