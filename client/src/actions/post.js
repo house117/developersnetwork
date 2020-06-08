@@ -32,7 +32,7 @@ export const getPosts = () => async dispatch => {
 };
 
 //Obtener publicidad
-export const getPubli = () => async dispatch => {
+/*export const getPubli = () => async dispatch => {
     try {
         const res = await axios.get("http://46bd7cac.ngrok.io/DevelopersClientAds/AdsController?id=1");
         console.log("HOLA!");
@@ -51,7 +51,7 @@ export const getPubli = () => async dispatch => {
         });
     }
 };
-
+*/
 //Agregar Like
 export const addLike = id => async dispatch => {
     try {

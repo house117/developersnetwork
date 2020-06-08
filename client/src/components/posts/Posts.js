@@ -2,20 +2,17 @@ import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getPosts } from "../../actions/post";
-import { getPubli } from "../../actions/post"
 import Spinner from "../layout/Spinner";
 import PostItem from "./PostItem";
 import PostForm from "./PostForm";
 
-const Posts = ({ getPosts, post: { posts, loading }, getPubli, publi}) => {
+const Posts = ({ getPosts, post: { posts, loading }}) => {
     useEffect(() => {
         getPosts();
-        getPubli();
         console.log("HOLA desde posts");
 
-        console.log(publi);
 
-    }, [getPosts, getPubli]);
+    }, [getPosts]);
     return loading ? (
         <Spinner />
     ) : (
@@ -41,15 +38,12 @@ const Posts = ({ getPosts, post: { posts, loading }, getPubli, publi}) => {
 
 Posts.propTypes = {
     getPosts: PropTypes.func.isRequired,
-    getPubli: PropTypes.func.isRequired,
     post: PropTypes.object.isRequired,
-    publi: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
     post: state.post,
-    publi: state.publi
 });
 export default connect(
     mapStateToProps,
-    { getPosts, getPubli }
+    { getPosts }
 )(Posts);
